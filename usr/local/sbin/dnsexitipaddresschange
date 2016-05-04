@@ -1,0 +1,12 @@
+#!/bin/bash
+ip=$1
+changed=$2
+#oldip="31.24.8.137"
+source /etc/dnsexitoldip
+
+if [ $changed -eq 0 ]; then
+
+  pushbullet push all link "meos.tk ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+else
+  pushbullet push all link "meos.tk ip change, was $oldip" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+fi

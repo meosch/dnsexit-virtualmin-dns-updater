@@ -1,0 +1,18 @@
+#!/bin/bash
+# Simple script to work with the DNSExit.com updater and Virtualmin. This script updates the DNS entries to the internet IP address after a change.
+#internetip=$(wget http://ipinfo.io/ip -qO -)
+internetip=$(cat /tmp/dnsexit-ip.txt)
+dnsreportedip=$(dig meosch.tk a @127.0.0.1 +short)
+changed=0
+source /etc/dnsexitoldip
+
+if [ ! "${internetip}" = "${dnsreportedip}" ]; then
+  changed=1
+fi
+
+if [ $changed -eq 1 ]; then
+virtualmin modify-dns --all-domains --dns-ip $internetip
+# Set the old ip address to the current internet ip address.
+  if [ ! "${oldip}" = "${internetip}" ]; then
+  echo "oldip=${internetip}" > /etc/dnsexitoldip
+fi
