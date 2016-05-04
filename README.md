@@ -33,4 +33,4 @@ To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](ht
 
 ## Disclaimer
 
-I have backed these files up her for future reference. I have never installed from them. It could be that some files that were installed from the original .deb package have been missed, however I have included the original archive.
+I have backed these files here for future reference. I have never installed from them. It could be that some files that were installed from the original .deb package have been missed, however I have included the original archive.
