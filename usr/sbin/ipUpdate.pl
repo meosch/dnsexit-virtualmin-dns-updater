@@ -52,8 +52,9 @@ if ( ! ( $daemon eq "yes" ) )
   postNewIP( $ip );
     my $changed = 1;
     system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
-}
-else
+    system('/usr/local/sbin/dnsexitupdatevirtualmindns');
+    }
+  else
 {
   daemonize();
   while(1)
