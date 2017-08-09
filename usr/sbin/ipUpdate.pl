@@ -44,9 +44,9 @@ if ( ! ( $daemon eq "yes" ) )
   if ( $ipFlag == 1 )
   {
     mark("INFO", "100", "IP is not changed from last successful update");
-# Comment out next two lines to not get Pushbullet updates about the ip not changing.
-#      my $changed = 0;
-#      system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
+# To change when Pushbullet sends updates about the ip changing or not, edit /usr/local/sbin/dnsexitipaddresschange.
+      my $changed = 0;
+      system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
     exit 0;
   }
   postNewIP( $ip );
@@ -61,9 +61,9 @@ if ( ! ( $daemon eq "yes" ) )
   {
     clear();
     mark("INFO", "100", "Started in daemon mode");
-#    my $changed = 0;
+    my $changed = 0;
     $ip = getProxyIP();  
-#    system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
+    system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
     $ipFlag = isIpChanged($ip);
     if ( $ipFlag == 1 )
     {

@@ -5,8 +5,8 @@ changed=$2
 source /etc/dnsexitoldip
 
 if [ $changed -eq 0 ]; then
-
-  pushbullet push all link "meos.tk ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+#  pushbullet push all link "meosch.tk ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+  exit
 else
-  pushbullet push all link "meos.tk ip change, was $oldip" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+  pushbullet push all link "meosch.tk ip change, is now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
 fi
