@@ -17,7 +17,7 @@ Made some changes to the DNSexit.com [updater](http://www.dnsexit.com/Direct.sv?
 * **/tmp/dnsexit-ip.txt** The DNSexit scripts temp file containing the current ip address.
 * **/tmp/dnsexitpushbullet.txt** Used when sending a pushbullet message.
 * **/usr/share/ipUpdate-1.6/Http_get.pm** Required by **ipUpdate.pl**.
-* **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference.
+* **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference (can be downloaded [here](http://downloads.dnsexit.com/ipUpdate-1.6-2.tar.gz tar)).
 
 ## Dependencies
 
@@ -33,4 +33,4 @@ To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](ht
 
 ## Disclaimer
 
-I have backed these files up her for future reference. I have never installed from them. It could be that some files that were installed from the original .deb package have been missed, however I have included the original archive.
+I have backed these files here for future reference. I have never installed from them. It could be that some files that were installed from the original .deb package have been missed, however I have included the original archive.
