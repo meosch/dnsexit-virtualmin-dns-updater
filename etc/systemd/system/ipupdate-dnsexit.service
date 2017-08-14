@@ -5,6 +5,8 @@ After=syslog.target network.target
 [Service]
 PIDFile=/var/run/ipUpdate.pid
 ExecStart=/usr/sbin/ipUpdate.pl daemon
+Restart=on-failure
+RestartSec=35
  
 [Install]
 WantedBy=multi-user.target
