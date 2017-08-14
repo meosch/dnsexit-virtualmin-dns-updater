@@ -17,7 +17,7 @@ Made some changes to the DNSexit.com [updater](http://www.dnsexit.com/Direct.sv?
 * **/tmp/dnsexit-ip.txt** The DNSexit scripts temp file containing the current ip address.
 * **/tmp/dnsexitpushbullet.txt** Used when sending a pushbullet message.
 * **/usr/share/ipUpdate-1.6/Http_get.pm** Required by **ipUpdate.pl**.
-* **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference (can be downloaded [here](http://downloads.dnsexit.com/ipUpdate-1.6-2.tar.gz tar)).
+* **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference (can be downloaded [here](http://downloads.dnsexit.com/ipUpdate-1.6-2.tar.gz)).
 
 ## Dependencies
 
