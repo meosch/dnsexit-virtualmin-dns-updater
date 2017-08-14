@@ -25,11 +25,14 @@ To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](ht
 
 ## Setup
 
-* **NOTE**:  This version uses a **SysV-stlye** init script. This was installed on Ubuntu 14.04 LTS. The next version will be installed on Ubuntu 16.04 LTS which uses the **systemd** startup system.
+* **NOTE**: This version was installed on Ubuntu 16.04 LTS which uses a **systemd** startup system script. A previous version used a **SysV-stlye** init script and was installed on Ubuntu 14.04 LTS. See the releases section for a previous release that has **sysv** in the release tag.
 * Put the files in the appropriate locations indicated by the folder structure in the repository and ensure proper permissions.
 * Run the **dnsexit-setup.pl** script to configure the updater with your DNSexit information.
-* To have the Sysv start the daemon after booting run the following as  the super user:
-<code style="bash">sudo update-rc.d -n ipUpdate defaults</code>
+* To have the have **systemd** start the daemon after booting run the following as  the super user:
+
+<code style="bash">sudo systemctl enable ipupdate-dnsexit.service</code>
+
+* If you previously had the **sysv** startup script installed be sure to remove it from **/etc/init.d/ipUpdate**. This will prevent the service from being run twice under two different names.
 * You will also need to configure [Pushbullet Bash](https://github.com/Red5d/pushbullet-bash). See the instructions on the projects page.
 
 ## Disclaimer
