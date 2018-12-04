@@ -37,7 +37,6 @@ $logfile  = $keyVal{"logfile"} || '/var/log/dnsexit.log';
 
 if ( ! ( $daemon eq "yes" ) )
 {
-  clear();
   $ip = getProxyIP();
   
   $ipFlag = isIpChanged($ip);
@@ -59,7 +58,6 @@ if ( ! ( $daemon eq "yes" ) )
   daemonize();
   while(1)
   {
-    clear();
     mark("INFO", "100", "Started in daemon mode");
     my $changed = 0;
     $ip = getProxyIP();  
