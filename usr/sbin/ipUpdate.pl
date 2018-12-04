@@ -29,6 +29,7 @@ while (<CFG>)
   $keyVal{$key} = $value;
 }
 $ipfile   = $keyVal{"cachefile"} || '/tmp/dnsexit-ip.txt';
+$oldipfile = '/tmp/dnsexit-oldip.txt';
 $pidfile  = $keyVal{"pidfile"} || '/var/run/ipUpdate.pid';
 $daemon   = lc($keyVal{"daemon"}) || 'yes';
 $interval = $keyVal{"interval"} || 600;
@@ -128,6 +129,9 @@ sub isIpChanged
   #print "new=[$newip] old=[$preip]";
   if (!($newip eq $preip))
   {
+    open S, "> $oldipfile";
+    print S $preip;
+    close S;
     return 0;
   }
   return 1;
