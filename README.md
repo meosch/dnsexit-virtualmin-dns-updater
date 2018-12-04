@@ -1,21 +1,21 @@
 # dnsexit-virtualmin-dns-updater
-Modified DNSExit updater with additional scripts that update Virtualmin DNS records and send Pushbullet updates.
+Modified DNSExit updater with additional scripts that update Virtualmin DNS records and send Email updates.
 
 ## Story
 Made some changes to the DNSexit.com [updater](http://www.dnsexit.com/Direct.sv?cmd=ipClients) to allow it to notify me when the public ip address on the Virtualmin server changes and also to update the Virtualmin host DNS records.
 
 ## Files
 
-* **/etc/dnsexitoldip** contains the old(current) ip address. This is updated to current internet ip address after updating the DNS server records on Virtualmin
-* **/usr/local/sbin/dnsexitipaddresschange** sends the pushbullet messages and is called by
-* **/usr/sbin/ipUpdate.pl**       to send a push when the ip address changes.
+* **/tmp/dnsexit-oldip.txt** contains the old ip address. This is saved when it is seen the current ip address and the ExitDNS DNS ip adresses do not match.
+* **/usr/local/sbin/dnsexitipaddresschange** sends the email messages and is called by
+* **/usr/sbin/ipUpdate.pl** to send an email when the ip address changes.
 * **/usr/local/sbin/dnsexitupdatevirtualmindns** Updates the DNS records on Virtualmin after an IP address change.
 * **/etc/dnsexit.conf** Configuration for your DNSexit account is saved in this file.
 * **/usr/local/share/dnsexit-setup.pl** - Run this script to configure the DNS Updater with your DNSexit account information.
 * **/etc/dnsexitoldip** Keeps a record of the "old" ip address until we update everything.
 * **/var/log/dnsexit.log** Log file of what the script does.
 * **/tmp/dnsexit-ip.txt** The DNSexit scripts temp file containing the current ip address.
-* **/tmp/dnsexitpushbullet.txt** Used when sending a pushbullet message.
+* **/tmp/dnsexitemail.txt** Used when sending an email message.
 * **/usr/share/ipUpdate-1.6/Http_get.pm** Required by **ipUpdate.pl**.
 * **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference (can be downloaded [here](http://downloads.dnsexit.com/ipUpdate-1.6-2.tar.gz)).
 
@@ -33,7 +33,8 @@ To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](ht
 <code style="bash">sudo systemctl enable ipupdate-dnsexit.service</code>
 
 * If you previously had the **sysv** startup script installed be sure to remove it from **/etc/init.d/ipUpdate**. This will prevent the service from being run twice under two different names.
-* You will also need to configure [Pushbullet Bash](https://github.com/Red5d/pushbullet-bash). See the instructions on the projects page.
+
+* Note: Previously this project used Pushbullet to send out messages of ip changes. This proved to be unreliable, so updates are now sent via email. This means you need an email server like postfix and should setup aliases that point to external email addresses unless you plan to read these emails on the server.
 
 ## Disclaimer
 
