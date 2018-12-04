@@ -1,12 +1,16 @@
 #!/bin/bash
 ip=$1
 changed=$2
-#oldip="31.24.8.137"
-source /etc/dnsexitoldip
 
 if [ $changed -eq 0 ]; then
-#  pushbullet push all link "meosch.tk ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+## Uncomment the next two lines for testing to see message when the ip address is checked, but does not change.
+#   echo "meosch.tk ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitemail.txt
+#   cat /tmp/dnsexitemail.txt | mail -s "[meosch.tk] IP check - no change" root
   exit
 else
-  pushbullet push all link "meosch.tk ip change, is now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+   echo "meosch.tk ip change, ip now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
+   echo "" >&2>>/tmp/dnsexitemail.txt
+   echo -n "Old IP address was: " >&2>>/tmp/dnsexitemail.txt
+   cat /tmp/dnsexit-oldip.txt >&2>>/tmp/dnsexitemail.txt
+   cat /tmp/dnsexitemail.txt | mail -s "[meosch.tk] IP check - IP changed" root
 fi
