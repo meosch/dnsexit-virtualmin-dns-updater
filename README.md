@@ -17,11 +17,9 @@ Made some changes to the DNSexit.com [updater](http://www.dnsexit.com/Direct.sv?
 * **/tmp/dnsexit-ip.txt** The DNSexit scripts temp file containing the current ip address.
 * **/tmp/dnsexitemail.txt** Used when sending an email message.
 * **/usr/share/ipUpdate-1.6/Http_get.pm** Required by **ipUpdate.pl**.
+* **/home/username/bin/ta.sh** Script to send messages via Telegram on IP changes.
 * **ipUpdate-1.6-2.tar.gz** The original 1.6 version of the DNSexit archive for reference (can be downloaded [here](http://downloads.dnsexit.com/ipUpdate-1.6-2.tar.gz)).
 
-## Dependencies
-
-To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](https://github.com/Red5d/pushbullet-bash).
 
 ## Setup
 
@@ -34,7 +32,7 @@ To send Pushbullet.com notifications you will need to setup [Pushbullet Bash](ht
 
 * If you previously had the **sysv** startup script installed be sure to remove it from **/etc/init.d/ipUpdate**. This will prevent the service from being run twice under two different names.
 
-* Note: Previously this project used Pushbullet to send out messages of ip changes. This proved to be unreliable, so updates are now sent via email. This means you need an email server like postfix and should setup aliases that point to external email addresses unless you plan to read these emails on the server.
+* Note: Previously this project used Pushbullet to send out messages of ip changes. This proved to be unreliable, so updates are now sent via email and Telegram. This means you need an email server like postfix and should setup aliases that point to external email addresses unless you plan to read these emails on the server.
 
 ## Disclaimer
 
