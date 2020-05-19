@@ -44,15 +44,15 @@ if ( ! ( $daemon eq "yes" ) )
   if ( $ipFlag == 1 )
   {
     mark("INFO", "100", "IP is not changed from last successful update");
-# To change when Pushbullet sends updates about the ip changing or not, edit /usr/local/sbin/dnsexitipaddresschange.
+# To change when Telegram sends alerts about the ip changing or not, edit /usr/local/sbin/dnsexitipaddresschange.
       my $changed = 0;
-      system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
+      system("/bin/bash -c \"/usr/local/sbin/dnsexitipaddresschange $ip $changed\"");
     exit 0;
   }
   postNewIP( $ip );
     my $changed = 1;
-    system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
-    system('/usr/local/sbin/dnsexitupdatevirtualmindns');
+    system("/bin/bash -c \"/usr/local/sbin/dnsexitipaddresschange $ip $changed\"");
+    system("/bin/bash -c \"/usr/local/sbin/dnsexitupdatevirtualmindns\"");
     }
   else
 {
@@ -61,8 +61,8 @@ if ( ! ( $daemon eq "yes" ) )
   {
     mark("INFO", "100", "Started in daemon mode");
     my $changed = 0;
-    $ip = getProxyIP();  
-    system('/usr/local/sbin/dnsexitipaddresschange', "$ip", "$changed");
+    $ip = getProxyIP();
+    system("/bin/bash -c \"/usr/local/sbin/dnsexitipaddresschange $ip $changed\"");
     $ipFlag = isIpChanged($ip);
     if ( $ipFlag == 1 )
     {
@@ -88,6 +88,7 @@ sub postNewIP
   my $password = $keyVal{"password"};
   my $host = $keyVal{"host"};
   my $posturl = "${url}?login=${login}&password=${password}&host=${host}";
+  my $changed = 1;
 
   if ( $newip =~ /\d+\.\d+\.\d+\.\d+/ )
   {
@@ -117,7 +118,8 @@ sub postNewIP
   {
     mark("ERROR", $response->code, $response->message);
   }
-
+    system("/bin/bash -c \"/usr/local/sbin/dnsexitipaddresschange $ip $changed\"");
+    system("/bin/bash -c \"/usr/local/sbin/dnsexitupdatevirtualmindns\"");
 }
 
 sub isIpChanged
