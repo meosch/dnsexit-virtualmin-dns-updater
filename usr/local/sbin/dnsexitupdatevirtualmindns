@@ -3,7 +3,7 @@
 #set -x
 #internetip=$(wget http://ipinfo.io/ip -qO -)
 internetip=$(cat /tmp/dnsexit-ip.txt)
-dnsreportedip=$(dig meosch.tk a @127.0.0.1 +short)
+dnsreportedip=$(dig 7.meos.ch a @127.0.0.1 +short)
 changed=0
 source /etc/dnsexitoldip
 
