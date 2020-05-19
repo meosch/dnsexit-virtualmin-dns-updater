@@ -6,6 +6,7 @@
 ##
 ##################################################
 
+use lib '/usr/share/ipUpdate-1.6';
 use Http_get;
 
 $PROGRAMDIR=`dirname $0`;
