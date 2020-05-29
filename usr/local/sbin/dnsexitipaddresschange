@@ -9,9 +9,9 @@ changed=$2
 if [ $changed -eq 0 ]; then
 ## Uncomment the next two lines for testing to see message when the ip address is checked, but does not change.
 #   echo "7.meos.ch ip did not change. ip is still:" http://$ip >&2>/tmp/dnsexitemail.txt
-#   cat /tmp/dnsexitemail.txt | mail -s "[meosch.tk] IP check - no change" root
+#   cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - no change" root
 #  Uncomment the next line for testing with Telegram alert on Frederick's Shell Alerts channel when the IP address is checked.
-#   /home/fhenderson/bin/ta.sh "ta.sh - meosch.tk ip did not change. ip is still: $ip"
+#   /home/fhenderson/bin/ta.sh "ta.sh - 7.meos.ch ip did not change. ip is still: $ip"
   exit
 else
 #   echo "7.meos.ch ip change, ip now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
@@ -19,9 +19,11 @@ else
    echo "" >&2>>/tmp/dnsexitemail.txt
    echo -n "Old IP address was: " >&2>>/tmp/dnsexitemail.txt
    cat /tmp/dnsexit-oldip.txt >&2>>/tmp/dnsexitemail.txt
+   echo  "New  IP address is: " >&2>>/tmp/dnsexitemail.txt
+   echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
    cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - IP changed" root
 # Telegram alert  on IP address change.
-   /home/fhenderson/bin/ta.sh "meosch.tk ip changed, ip is now: $ip"
+   /home/fhenderson/bin/ta.sh "7.meos.ch ip changed, ip is now: $ip"
    oldip=$(cat /tmp/dnsexit-oldip.txt)
    /home/fhenderson/bin/ta.sh "Old IP address was: $oldip"
 fi
