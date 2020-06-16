@@ -14,7 +14,6 @@ if [ $changed -eq 0 ]; then
 #   /home/fhenderson/bin/ta.sh "ta.sh - 7.meos.ch ip did not change. ip is still: $ip"
   exit
 else
-#   echo "7.meos.ch ip change, ip now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
 # Email alert on IP address change.
    echo "" >&2>/tmp/dnsexitemail.txt
    echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
