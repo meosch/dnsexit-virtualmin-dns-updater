@@ -2,7 +2,7 @@
 # For testing. First line outputs line numbers.
 # Second line says to output what is going on in script
 PS4=':${LINENO}+'
-set -x
+#set -x
 ip=$1
 changed=$2
 
