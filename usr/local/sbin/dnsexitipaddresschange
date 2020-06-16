@@ -16,9 +16,15 @@ if [ $changed -eq 0 ]; then
 else
 #   echo "7.meos.ch ip change, ip now:" http://$ip >&2>/tmp/dnsexitpushbullet.txt
 # Email alert on IP address change.
+   echo "" >&2>/tmp/dnsexitemail.txt
+   echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
+   echo "The DNS Exit update script has detected a change in the dynamic IP address." >&2>>/tmp/dnsexitemail.txt
+   echo "----------------------------------------------------------------------------" >&2>>/tmp/dnsexitemail.txt
    echo "" >&2>>/tmp/dnsexitemail.txt
    echo -n "Old IP address was: " >&2>>/tmp/dnsexitemail.txt
    cat /tmp/dnsexit-oldip.txt >&2>>/tmp/dnsexitemail.txt
+   echo "" >&2>>/tmp/dnsexitemail.txt
+   echo "" >&2>>/tmp/dnsexitemail.txt
    echo  "New  IP address is: " >&2>>/tmp/dnsexitemail.txt
    echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
    cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - IP changed" root
