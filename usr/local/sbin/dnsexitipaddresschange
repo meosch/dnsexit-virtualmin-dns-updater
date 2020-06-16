@@ -14,21 +14,38 @@ if [ $changed -eq 0 ]; then
 #   /home/fhenderson/bin/ta.sh "ta.sh - 7.meos.ch ip did not change. ip is still: $ip"
   exit
 else
-# Email alert on IP address change.
-   echo "" >&2>/tmp/dnsexitemail.txt
-   echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
-   echo "The DNS Exit update script has detected a change in the dynamic IP address." >&2>>/tmp/dnsexitemail.txt
-   echo "----------------------------------------------------------------------------" >&2>>/tmp/dnsexitemail.txt
-   echo "" >&2>>/tmp/dnsexitemail.txt
-   echo -n "Old IP address was: " >&2>>/tmp/dnsexitemail.txt
-   cat /tmp/dnsexit-oldip.txt >&2>>/tmp/dnsexitemail.txt
-   echo "" >&2>>/tmp/dnsexitemail.txt
-   echo "" >&2>>/tmp/dnsexitemail.txt
-   echo  "New  IP address is: " >&2>>/tmp/dnsexitemail.txt
-   echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
-   cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - IP changed" root
-# Telegram alert  on IP address change.
-   /home/fhenderson/bin/ta.sh "7.meos.ch ip changed, ip is now: $ip"
-   oldip=$(cat /tmp/dnsexit-oldip.txt)
-   /home/fhenderson/bin/ta.sh "Old IP address was: $oldip"
+# Check if we rebooted in the last  10 minutes.
+lastreboottime=$(date --date "$(uptime -s)" +%s)
+currenttime=$(date +%s)
+secondssincelastreboot=$(expr $currenttime - $lastreboottime)
+   if [ $secondssincelastreboot -lt 600 ]; then
+   # Email alert after reboot with current IP address.
+      echo "" >&2>/tmp/dnsexitemail.txt
+      echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
+      echo "The MEOS Backup server just rebooted in the last 10 minutes (~ $secondssincelastreboot seconds ago)." >&2>>/tmp/dnsexitemail.txt
+      echo "----------------------------------------------------------------------------" >&2>>/tmp/dnsexitemail.txt
+      echo  "Current IP address is: " >&2>>/tmp/dnsexitemail.txt
+      echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
+      cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - Reboot" root
+      # Telegram alert on reboot.
+      /home/fhenderson/bin/ta.sh "7.meos.ch rebooted, ip is now: $ip"
+   else
+   # Email alert on IP address change.
+      echo "" >&2>/tmp/dnsexitemail.txt
+      echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
+      echo "The DNS Exit update script has detected a change in the dynamic IP address." >&2>>/tmp/dnsexitemail.txt
+      echo "----------------------------------------------------------------------------" >&2>>/tmp/dnsexitemail.txt
+      echo "" >&2>>/tmp/dnsexitemail.txt
+      echo -n "Old IP address was: " >&2>>/tmp/dnsexitemail.txt
+      cat /tmp/dnsexit-oldip.txt >&2>>/tmp/dnsexitemail.txt
+      echo "" >&2>>/tmp/dnsexitemail.txt
+      echo "" >&2>>/tmp/dnsexitemail.txt
+      echo  "New  IP address is: " >&2>>/tmp/dnsexitemail.txt
+      echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
+      cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - IP changed" root
+   # Telegram alert  on IP address change.
+      /home/fhenderson/bin/ta.sh "7.meos.ch ip changed, ip is now: $ip"
+      oldip=$(cat /tmp/dnsexit-oldip.txt)
+      /home/fhenderson/bin/ta.sh "Old IP address was: $oldip"
+   fi
 fi
