@@ -19,16 +19,16 @@ lastreboottime=$(date --date "$(uptime -s)" +%s)
 currenttime=$(date +%s)
 secondssincelastreboot=$(expr $currenttime - $lastreboottime)
    if [ $secondssincelastreboot -lt 600 ]; then
-   # Email alert after reboot with current IP address.
+   # Email alert after starting giving the current Internet IP address.
       echo "" >&2>/tmp/dnsexitemail.txt
       echo "This is an automated message from the MEOS backup server 7.meos.ch." >&2>>/tmp/dnsexitemail.txt
-      echo "The MEOS Backup server just rebooted in the last 10 minutes (~ $secondssincelastreboot seconds ago)." >&2>>/tmp/dnsexitemail.txt
+      echo "The MEOS Backup server just started in the last 10 minutes (~ $secondssincelastreboot seconds ago)." >&2>>/tmp/dnsexitemail.txt
       echo "----------------------------------------------------------------------------" >&2>>/tmp/dnsexitemail.txt
       echo  "Current IP address is: " >&2>>/tmp/dnsexitemail.txt
       echo -n "$ip" >&2>>/tmp/dnsexitemail.txt
-      cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - Reboot" root
-      # Telegram alert on reboot.
-      /home/fhenderson/bin/ta.sh "7.meos.ch rebooted, ip is now: $ip"
+      cat /tmp/dnsexitemail.txt | mail -s "[7.meos.ch] IP check - Start" root
+      # Telegram alert on start.
+      /home/fhenderson/bin/ta.sh "7.meos.ch started, ip is now: $ip"
    else
    # Email alert on IP address change.
       echo "" >&2>/tmp/dnsexitemail.txt
